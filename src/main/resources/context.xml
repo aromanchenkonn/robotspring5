@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   	xmlns:p="http://www.springframework.org/schema/p"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 
-	default-init-method="initObject" default-destroy-method="destroyObject"
+		default-init-method="initObject"
+		default-destroy-method="destroyObject"
+		default-lazy-init="true">
 
-	default-lazy-init="true">
+	<!--
+	методы
+		default-init-method="initObject"
+		default-destroy-method="destroyObject"
+		default-lazy-init="true"
 
+		вызываются для всех бинов.
+		для этого должны быть методы в классе (в нашем случае класс ModelT1000)
+		Если этих методов для бина нет, то ничего не произойдет, ошибки не будет
+		также можно прописать эти методы для каждого бина отдельно
+
+		метод
+		default-lazy-init="true"
+		вызывает бин по требованию - это экономит ресурсы
+		-->
 
 	<bean id="t1000" class="ru.javabegin.training.spring.impls.robot.ModelT1000"
-		p:hand-ref="toshibaHand" p:leg-ref="sonyLeg" p:head-ref="sonyHead">
+		  p:hand-ref="toshibaHand"
+		  p:leg-ref="sonyLeg"
+		  p:head-ref="toshibaHead"
+		  scope="prototype">
 
 		<constructor-arg value="silver" index="0" type="String" />
 		<constructor-arg value="2005" index="1" type="int" />
@@ -17,16 +37,16 @@
 
 	</bean>
 
+	<!--
+	scope - метод генерации объекта, пример
+	singleton, prototype
+	-->
 
 	<bean id="t1000Empty" class="ru.javabegin.training.spring.impls.robot.ModelT1000">
-
 		<constructor-arg ref="sonyHand" />
 		<constructor-arg ref="sonyLeg" />
 		<constructor-arg ref="toshibaHead" />
-
 	</bean>
-
-
 
 	<bean id="sonyHand" class="ru.javabegin.training.spring.impls.sony.SonyHand" />
 	<bean id="sonyHead" class="ru.javabegin.training.spring.impls.sony.SonyHead" />
@@ -35,6 +55,4 @@
 	<bean id="toshibaHand" class="ru.javabegin.training.spring.impls.toshiba.ToshibaHand" />
 	<bean id="toshibaHead" class="ru.javabegin.training.spring.impls.toshiba.ToshibaHead" />
 	<bean id="toshibaLeg" class="ru.javabegin.training.spring.impls.toshiba.ToshibaLeg" />
-
-
 </beans>

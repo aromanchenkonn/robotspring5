@@ -42,7 +42,6 @@ public class ModelT1000 implements Robot {
 		this.soundEnabled = soundEnabled;
 	}
 
-	@Override
 	public void action() {
 		head.calc();
 		hand.catchSomething();
